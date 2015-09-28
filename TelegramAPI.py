@@ -1,5 +1,6 @@
 import requests
 import os
+import json
 
 token = open(os.path.join(".", "token.txt"), "r").read()
 url = "https://api.telegram.org/" + "bot" + token + "/"
@@ -35,4 +36,9 @@ def save_update_id(update_id):
 
 def send_text_message(chat_id, text):
     payload = {"chat_id": chat_id, "text": text}
+    return requests.post(send_message_url, payload)
+
+def send_text_message_with_keyboard(chat_id, text, buttons):
+    keyboard = '{"keyboard":' + json.dumps(buttons) + ',"one_time_keyboard": true}'
+    payload = {"chat_id": chat_id, "text": text, "reply_markup": keyboard}
     return requests.post(send_message_url, payload)
