@@ -2,10 +2,11 @@ import requests
 import os
 import json
 
-token = open(os.path.join(".", "token.txt"), "r").read()
-url = "https://api.telegram.org/" + "bot" + token + "/"
-update_url = url + "getUpdates"
-send_message_url = url + "sendMessage"
+token = open(os.path.join(".", "token.txt"), "r").read().rstrip()
+url = "".join(["https://api.telegram.org/", "bot", token, "/"])
+update_url = "".join([url, "getUpdates"])
+send_message_url = "".join({url, "sendMessage"})
+
 
 def get_message():
     message = requests.get(update_url).json()
