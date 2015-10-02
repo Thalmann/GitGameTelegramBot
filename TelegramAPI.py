@@ -27,7 +27,7 @@ def get_update_id(message, old_update_id):
         return old_update_id
 
 def get_updates_message(payload = {"offset": 0}):
-    return requests.get(update_url, payload).json()
+    return requests.post(update_url, payload).json()
 
 def load_update_id():
     return int(open(os.path.join(".", "update_id.txt"), "r").read())
