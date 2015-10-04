@@ -3,14 +3,22 @@ import time
 import TelegramAPI
 
 old_update_id = TelegramAPI.load_update_id()
-update_id = TelegramAPI.get_update_id(TelegramAPI.get_message(), old_update_id)
+m = TelegramAPI.get_message(old_update_id)
+update_id = old_update_id if m.empty else m.update_id
 
 while True:   
     print("running")
-    message = TelegramAPI.get_updates_message({"offset": update_id})
-    if message[u"result"] != []:
-        print(TelegramAPI.get_text_message(message))
-        chat_id = TelegramAPI.get_chat_id(message)
+    message = TelegramAPI.get_message(update_id)
+    if not message.empty:
+        print(message.text)
+        print(message.message_id)
+        user = message.from_
+        print(user.first_name)
+        print(user.last_name)
+        print(user.id_)
+        print(message.date)
+        print(message.chat)
+        print(message.update_id)
         #### What shall happen :::::
 
 
